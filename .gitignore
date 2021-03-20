@@ -1,3 +1,13 @@
+county.zip
+DemoDataMap.qgz
+S2_data.qgz
+.ipynb_checkpoints
+AdairIA/*
+S2/NCI/*
+S2/OUTPUT/*
+S2/SI/*
+*.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

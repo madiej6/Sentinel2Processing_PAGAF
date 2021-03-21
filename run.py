@@ -44,7 +44,7 @@ def main():
         band8_rio = rasterio.open(band8, driver='JP2OpenJPEG') #nir
 
         # open True Color Image (TCI) for preview of scene
-        tci = glob.glob(IMG_DATA+"/*TCI.jp2")[0]
+        tci = glob.glob(granulesubdir+"/IMG_DATA/*TCI.jp2")[0]
         tci_rio = rasterio.open(tci, driver='JP2OpenJPEG') #tci
 
         # read in xml (metadata) file

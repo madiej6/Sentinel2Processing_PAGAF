@@ -65,9 +65,11 @@ def main():
         output = r"S2/OUTPUT/{}_S2stack_5bands.tif".format(IMG_NAME)
         os.system('gdal_merge.py -o ' + output + ' -separate -co PHOTOMETRIC=RGB ' + band2 + ' ' + band3 + ' ' + band4 + ' ' + band5 + ' ' + band8)
 
+        print(IMG_DATA.split("/IMG")[0]+"/QI_DATA/MSK_CLOUDS_B00.gml")
+        print(IMG_DATA)
         # define cloud mask file path and shp output file path
-        cloud_gml = IMG_DATA.split("/IMG")[0]+"/QI_DATA/MSK_CLOUDS_B00.gml"
-        cloud_shp = IMG_DATA.split("/IMG")[0]+"/QI_DATA/MSK_CLOUDS_B00.shp"
+        cloud_gml = granulesubdir+"/QI_DATA/MSK_CLOUDS_B00.gml"
+        cloud_shp = granulesubdir+"/QI_DATA/MSK_CLOUDS_B00.shp"
 
         # convert gml cloud mask to shapefile
         cmd = """ogr2ogr -f 'ESRI Shapefile' {} {} """.format(cloud_shp, cloud_gml)

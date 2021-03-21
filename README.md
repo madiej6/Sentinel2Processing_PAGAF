@@ -7,5 +7,8 @@ In order to run the code, the user will need to download the data in Google Driv
 ## To run program:
 1. Download the Google Drive data at the link above
 2. Once data is downloaded, install requirements.txt 
-3. Run: run.py
-4. OR open the 
+3. To run the program to process all S2 images: In terminal, cd to repository: `python3 run.py`
+5. To run the Jupyter Notebook: In terminal, cd to repository: `jupyter notebook` and open S2_CI_SI.ipynb
+
+
+Output files (Nitrogen Sufficiency Index geotiffs) will be saved in: S2/SI/*

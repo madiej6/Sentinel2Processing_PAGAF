@@ -27,12 +27,14 @@ def main():
         IMG_NAME = IMG_DATA.split("MSIL1C_")[1].split('.SAFE')[0]
         print('Image Name: {}'.format(IMG_NAME))
 
+        granulesubdir = glob.glob(IMG_DATA+"/GRANULE/*")[0]
+
         # get filenames of each band
-        band2 = glob.glob(IMG_DATA+"/*B02.jp2")[0] #blue
-        band3 = glob.glob(IMG_DATA+"/*B03.jp2")[0] #green
-        band4 = glob.glob(IMG_DATA+"/*B04.jp2")[0] #red
-        band5 = glob.glob(IMG_DATA+"/*B05.jp2")[0] #rededge1
-        band8 = glob.glob(IMG_DATA+"/*B08.jp2")[0] #nir
+        band2 = glob.glob(granulesubdir+"/IMG_DATA/*B02.jp2")[0] #blue
+        band3 = glob.glob(granulesubdir+"/IMG_DATA/*B03.jp2")[0] #green
+        band4 = glob.glob(granulesubdir+"/IMG_DATA/*B04.jp2")[0] #red
+        band5 = glob.glob(granulesubdir+"/IMG_DATA/*B05.jp2")[0] #rededge1
+        band8 = glob.glob(granulesubdir+"/IMG_DATA/*B08.jp2")[0] #nir
 
         # open band imgs w/ rasterio
         band2_rio = rasterio.open(band2, driver='JP2OpenJPEG') #blue

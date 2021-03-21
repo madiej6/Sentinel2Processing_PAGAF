@@ -143,7 +143,7 @@ def main():
         CIband_normalized = normalize(CIband)
 
         #export normalized CI (NCI) image as geotiff
-        NCI_img = rasterio.open(r"/Users/Madeline/Projects/PAGAF/S2/NCI/{}_NCI.tif".format(IMG_NAME), 'w', driver='Gtiff',
+        NCI_img = rasterio.open(r"S2/NCI/{}_NCI.tif".format(IMG_NAME), 'w', driver='Gtiff',
                               width = CI_img.width,
                               height = CI_img.height,
                               count = 1, crs = CI_img.crs,
@@ -166,7 +166,7 @@ def main():
         SI = np.where(NCIband > toplim, 1, SI_) # make all values greater than 90th percentile 1
 
         #export SI array to geotiff
-        SI_img = rasterio.open(r"/Users/Madeline/Projects/PAGAF/S2/OUTPUT/{}_SI.tif".format(IMG_NAME), 'w', driver='Gtiff',
+        SI_img = rasterio.open(r"S2/OUTPUT/{}_SI.tif".format(IMG_NAME), 'w', driver='Gtiff',
                               width = CI_img.width,
                               height = CI_img.height,
                               count = 1, crs = CI_img.crs,
@@ -183,7 +183,7 @@ def main():
         NSI = normalize(SI)
 
         #export normalized SI to geotiff
-        NSI_img = rasterio.open(r"/Users/Madeline/Projects/PAGAF/S2/SI/{}_SI.tif".format(IMG_NAME), 'w', driver='Gtiff',
+        NSI_img = rasterio.open(r"S2/SI/{}_SI.tif".format(IMG_NAME), 'w', driver='Gtiff',
                               width = CI_img.width,
                               height = CI_img.height,
                               count = 1, crs = CI_img.crs,

@@ -4,11 +4,11 @@ This repository contains the scripts for a geoprocessing workflow in Python for 
 ## Data
 In order to run the code, the user will need to download the data in Google Drive [here](https://drive.google.com/drive/folders/1Z-Lx7nn8cJ75duBPO8Hxho4jfQkWxyfn?usp=sharing) and store it in the corresponding folders (AdairIA, S2).
 
-## To run program:
+## Instructions:
 1. Download the Google Drive data at the link above
-2. Once data is downloaded, install requirements.txt 
-3. To run the program to process all S2 images: In terminal, cd to repository: `python3 run.py`
-5. To run the Jupyter Notebook: In terminal, cd to repository: `jupyter notebook` and open S2_CI_SI.ipynb
+2. Once data is downloaded, install requirements.txt in conda environment with Python3.7
+3. To run the program to process all S2 images: In terminal, cd to repository, then run: `python3 run.py`
+5. To run the Jupyter Notebook: In terminal, cd to repository, then run: `jupyter notebook` and open S2_CI_SI.ipynb
 
 
 Output files (Nitrogen Sufficiency Index geotiffs) will be saved in: S2/SI/*

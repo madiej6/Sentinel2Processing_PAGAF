@@ -62,28 +62,34 @@ def main():
         print('Cloud Coverage: {}%'.format(cloud_pct))
 
         # create 5-band stack (blue, green, red, red edge, nir)
+        print('Generating image stack:')
         output = r"S2/OUTPUT/{}_S2stack_5bands.tif".format(IMG_NAME)
         os.system('gdal_merge.py -o ' + output + ' -separate -co PHOTOMETRIC=RGB ' + band2 + ' ' + band3 + ' ' + band4 + ' ' + band5 + ' ' + band8)
 
-        print(IMG_DATA.split("/IMG")[0]+"/QI_DATA/MSK_CLOUDS_B00.gml")
-        print(IMG_DATA)
+
         # define cloud mask file path and shp output file path
         cloud_gml = granulesubdir+"/QI_DATA/MSK_CLOUDS_B00.gml"
         cloud_shp = granulesubdir+"/QI_DATA/MSK_CLOUDS_B00.shp"
 
-        # convert gml cloud mask to shapefile
-        cmd = """ogr2ogr -f 'ESRI Shapefile' {} {} """.format(cloud_shp, cloud_gml)
-        os.system(cmd)
+        try:
+            # convert gml cloud mask to shapefile
+            cmd = """ogr2ogr -f 'ESRI Shapefile' {} {} """.format(cloud_shp, cloud_gml)
+            os.system(cmd)
+        except:
+            None
 
-        # burn cloud mask into raster
-        cmd = """gdal_rasterize -b 1 -b 2 -b 3 -b 4 -b 4 -burn 0 -burn 0 -burn 0 -burn 0 -burn 0 -l MSK_CLOUDS_B00 {} {}""".format(cloud_shp, output)
-        os.system(cmd)
+
+        if os.path.exists(cloud_shp):
+
+            # burn cloud mask into raster
+            cmd = """gdal_rasterize -b 1 -b 2 -b 3 -b 4 -b 4 -burn 0 -burn 0 -burn 0 -burn 0 -burn 0 -l MSK_CLOUDS_B00 {} {}""".format(cloud_shp, output)
+            os.system(cmd)
 
 
         # import corn mask shapefile
         cornmask_shp = r"AdairIA/CLUs_MajorityCorn_AdairIA.shp"
 
-        #shape = fiona.open(cornmask_shp)
+        print('Corn mask.')
         with fiona.open(cornmask_shp, "r") as shapefile:
             shapes = [feature["geometry"] for feature in shapefile]
 
@@ -118,7 +124,7 @@ def main():
         nir[nir==0] = np.nan
 
 
-
+        print('Chlorophyll index.')
         # calculate chlorophyll index (CI): NIR/Red Edge - 1
         CI = np.where((nir+rededge)==0.0,0,((nir/rededge) - 1))
 
@@ -163,6 +169,7 @@ def main():
         # top limit of Sufficiency Index - 90th percentile
         toplim = np.percentile(NCIband[~np.isnan(NCIband)], 90)
 
+        print('Sufficiency index.')
         # create Sufficiency Index (SI) array
         SI_ = np.where(NCIband < bottomlim, np.nan, NCIband) # make all values less than 40th percentile nan
         SI = np.where(NCIband > toplim, 1, SI_) # make all values greater than 90th percentile 1
@@ -196,7 +203,8 @@ def main():
 
         # print total run time in seconds
         elapsed = time.time() - t
-        print("total run time (seconds): ", elapsed)
+        print("Code successfully completed.")
+        print("Total run time (seconds): ", elapsed)
 
     return
 
